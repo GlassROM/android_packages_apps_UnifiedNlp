@@ -37,6 +37,7 @@ import org.microg.tools.ui.AbstractSettingsFragment;
 import java.util.List;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_BACKGROUND_LOCATION;
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.LOLLIPOP_MR1;
 
@@ -99,7 +100,7 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         protected void prepareSelfCheckList(List<SelfCheckGroup> checks) {
             if (SDK_INT > LOLLIPOP_MR1) {
-                checks.add(new PermissionCheckGroup(ACCESS_COARSE_LOCATION));
+                checks.add(new PermissionCheckGroup(ACCESS_COARSE_LOCATION, ACCESS_BACKGROUND_LOCATION));
             }
             checks.add(new NlpOsCompatChecks());
             checks.add(new NlpStatusChecks());
