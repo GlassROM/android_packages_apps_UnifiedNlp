@@ -31,9 +31,9 @@ allprojects {
     ext.supportLibraryVersion = "27.0.2"
 }
 
-def androidCompileSdk() { return 27 }
+def androidCompileSdk() { return 29 }
 
-def androidTargetSdk() { return 27 }
+def androidTargetSdk() { return 29 }
 
 def androidMinSdk() { return 9 }
 
