@@ -19,8 +19,6 @@ package org.microg.nlp.location;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -30,12 +28,20 @@ import java.lang.reflect.Method;
 
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR1;
-import static org.microg.nlp.api.Constants.ACTION_FORCE_LOCATION;
 import static org.microg.nlp.api.Constants.ACTION_RELOAD_SETTINGS;
-import static org.microg.nlp.api.Constants.INTENT_EXTRA_LOCATION;
-import static org.microg.nlp.api.Constants.PERMISSION_FORCE_LOCATION;
 
 public abstract class AbstractLocationService extends AbstractProviderService<LocationProvider> {
+    public static boolean WAS_BOUND = false;
+
+    /**
+     * Creates an LocationService.  Invoked by your subclass's constructor.
+     *
+     * @param tag Used for debugging.
+     */
+    public AbstractLocationService(String tag) {
+        super(tag);
+    }
+
     public static ComponentName reloadLocationService(Context context) {
         Intent intent = new Intent(ACTION_RELOAD_SETTINGS);
         setIntentTarget(context, intent);
@@ -48,17 +54,6 @@ public abstract class AbstractLocationService extends AbstractProviderService<Lo
         } else {
             intent.setClass(context, LocationServiceV1.class);
         }
-    }
-
-    public static boolean WAS_BOUND = false;
-
-    /**
-     * Creates an LocationService.  Invoked by your subclass's constructor.
-     *
-     * @param tag Used for debugging.
-     */
-    public AbstractLocationService(String tag) {
-        super(tag);
     }
 
     @Override

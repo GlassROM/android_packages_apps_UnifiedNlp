@@ -24,7 +24,6 @@ import android.util.AttributeSet;
 
 import org.microg.nlp.Preferences;
 import org.microg.nlp.R;
-import org.microg.nlp.api.GeocoderBackend;
 import org.microg.nlp.api.LocationBackend;
 import org.microg.nlp.location.AbstractLocationService;
 

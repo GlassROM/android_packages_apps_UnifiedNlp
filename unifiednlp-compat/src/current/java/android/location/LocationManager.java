@@ -288,7 +288,7 @@ public class LocationManager {
      * @throws SecurityException        if no suitable permission is present
      */
     public void requestLocationUpdates(String provider, long minTime, float minDistance,
-            LocationListener listener) {
+                                       LocationListener listener) {
     }
 
     /**
@@ -312,7 +312,7 @@ public class LocationManager {
      * @throws SecurityException        if no suitable permission is present
      */
     public void requestLocationUpdates(String provider, long minTime, float minDistance,
-            LocationListener listener, Looper looper) {
+                                       LocationListener listener, Looper looper) {
     }
 
     /**
@@ -337,7 +337,7 @@ public class LocationManager {
      * @throws SecurityException        if no suitable permission is present
      */
     public void requestLocationUpdates(long minTime, float minDistance, Criteria criteria,
-            LocationListener listener, Looper looper) {
+                                       LocationListener listener, Looper looper) {
     }
 
     /**
@@ -357,7 +357,7 @@ public class LocationManager {
      * @throws SecurityException        if no suitable permission is present
      */
     public void requestLocationUpdates(String provider, long minTime, float minDistance,
-            PendingIntent intent) {
+                                       PendingIntent intent) {
     }
 
     /**
@@ -451,7 +451,7 @@ public class LocationManager {
      * @throws SecurityException        if no suitable permission is present
      */
     public void requestLocationUpdates(long minTime, float minDistance, Criteria criteria,
-            PendingIntent intent) {
+                                       PendingIntent intent) {
     }
 
     /**
@@ -584,7 +584,7 @@ public class LocationManager {
      * @hide
      */
     public void requestLocationUpdates(LocationRequest request, LocationListener listener,
-            Looper looper) {
+                                       Looper looper) {
     }
 
     /**
@@ -678,7 +678,7 @@ public class LocationManager {
      *                           permission is not present
      */
     public void addProximityAlert(double latitude, double longitude, float radius, long expiration,
-            PendingIntent intent) {
+                                  PendingIntent intent) {
     }
 
     /**
@@ -840,8 +840,8 @@ public class LocationManager {
      * @throws IllegalArgumentException if a provider with the given name already exists
      */
     public void addTestProvider(String name, boolean requiresNetwork, boolean requiresSatellite,
-            boolean requiresCell, boolean hasMonetaryCost, boolean supportsAltitude,
-            boolean supportsSpeed, boolean supportsBearing, int powerRequirement, int accuracy) {
+                                boolean requiresCell, boolean hasMonetaryCost, boolean supportsAltitude,
+                                boolean supportsSpeed, boolean supportsBearing, int powerRequirement, int accuracy) {
     }
 
     /**

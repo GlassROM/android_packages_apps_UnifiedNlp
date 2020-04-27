@@ -71,6 +71,18 @@ public class Location implements Parcelable {
      * @hide
      */
     public static final String EXTRA_NO_GPS_LOCATION = "noGPSLocation";
+    public static final Parcelable.Creator<Location> CREATOR =
+            new Parcelable.Creator<Location>() {
+                @Override
+                public Location createFromParcel(Parcel in) {
+                    return null;
+                }
+
+                @Override
+                public Location[] newArray(int size) {
+                    return null;
+                }
+            };
 
     /**
      * Construct a new Location with a named provider.
@@ -87,18 +99,6 @@ public class Location implements Parcelable {
      * Construct a new Location object that is copied from an existing one.
      */
     public Location(Location l) {
-    }
-
-    /**
-     * Sets the contents of the location to the values from the given location.
-     */
-    public void set(Location l) {
-    }
-
-    /**
-     * Clears the contents of the location.
-     */
-    public void reset() {
     }
 
     /**
@@ -129,7 +129,7 @@ public class Location implements Parcelable {
     }
 
     private static void computeDistanceAndBearing(double lat1, double lon1,
-            double lat2, double lon2, float[] results) {
+                                                  double lat2, double lon2, float[] results) {
     }
 
     /**
@@ -150,7 +150,19 @@ public class Location implements Parcelable {
      * @throws IllegalArgumentException if results is null or has length < 1
      */
     public static void distanceBetween(double startLatitude, double startLongitude,
-            double endLatitude, double endLongitude, float[] results) {
+                                       double endLatitude, double endLongitude, float[] results) {
+    }
+
+    /**
+     * Sets the contents of the location to the values from the given location.
+     */
+    public void set(Location l) {
+    }
+
+    /**
+     * Clears the contents of the location.
+     */
+    public void reset() {
     }
 
     /**
@@ -500,19 +512,6 @@ public class Location implements Parcelable {
 
     public void dump(Printer pw, String prefix) {
     }
-
-    public static final Parcelable.Creator<Location> CREATOR =
-            new Parcelable.Creator<Location>() {
-                @Override
-                public Location createFromParcel(Parcel in) {
-                    return null;
-                }
-
-                @Override
-                public Location[] newArray(int size) {
-                    return null;
-                }
-            };
 
     @Override
     public int describeContents() {

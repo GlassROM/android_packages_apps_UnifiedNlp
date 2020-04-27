@@ -131,6 +131,30 @@ public final class LocationRequest implements Parcelable {
      * <p>This location request will allow high power location work.
      */
     public static final int POWER_HIGH = 203;
+    public static final Parcelable.Creator<LocationRequest> CREATOR =
+            new Parcelable.Creator<LocationRequest>() {
+                @Override
+                public LocationRequest createFromParcel(Parcel in) {
+                    return null;
+                }
+
+                @Override
+                public LocationRequest[] newArray(int size) {
+                    return null;
+                }
+            };
+
+    /**
+     * @hide
+     */
+    public LocationRequest() {
+    }
+
+    /**
+     * @hide
+     */
+    public LocationRequest(LocationRequest src) {
+    }
 
     /**
      * Create a location request with default parameters.
@@ -149,7 +173,7 @@ public final class LocationRequest implements Parcelable {
      * @hide
      */
     public static LocationRequest createFromDeprecatedProvider(String provider, long minTime,
-            float minDistance, boolean singleShot) {
+                                                               float minDistance, boolean singleShot) {
         return null;
     }
 
@@ -157,20 +181,24 @@ public final class LocationRequest implements Parcelable {
      * @hide
      */
     public static LocationRequest createFromDeprecatedCriteria(Criteria criteria, long minTime,
-            float minDistance, boolean singleShot) {
+                                                               float minDistance, boolean singleShot) {
         return null;
     }
 
     /**
      * @hide
      */
-    public LocationRequest() {
+    public static String qualityToString(int quality) {
+        return null;
     }
 
     /**
-     * @hide
+     * Get the quality of the request.
+     *
+     * @return an accuracy or power constant
      */
-    public LocationRequest(LocationRequest src) {
+    public int getQuality() {
+        return 0;
     }
 
     /**
@@ -199,11 +227,11 @@ public final class LocationRequest implements Parcelable {
     }
 
     /**
-     * Get the quality of the request.
+     * Get the desired interval of this request, in milliseconds.
      *
-     * @return an accuracy or power constant
+     * @return desired interval in milliseconds, inexact
      */
-    public int getQuality() {
+    public long getInterval() {
         return 0;
     }
 
@@ -240,11 +268,15 @@ public final class LocationRequest implements Parcelable {
     }
 
     /**
-     * Get the desired interval of this request, in milliseconds.
+     * Get the fastest interval of this request, in milliseconds.
+     * <p/>
+     * <p>The system will never provide location updates faster
+     * than the minimum of {@link #getFastestInterval} and
+     * {@link #getInterval}.
      *
-     * @return desired interval in milliseconds, inexact
+     * @return fastest interval in milliseconds, exact
      */
-    public long getInterval() {
+    public long getFastestInterval() {
         return 0;
     }
 
@@ -282,19 +314,6 @@ public final class LocationRequest implements Parcelable {
     }
 
     /**
-     * Get the fastest interval of this request, in milliseconds.
-     * <p/>
-     * <p>The system will never provide location updates faster
-     * than the minimum of {@link #getFastestInterval} and
-     * {@link #getInterval}.
-     *
-     * @return fastest interval in milliseconds, exact
-     */
-    public long getFastestInterval() {
-        return 0;
-    }
-
-    /**
      * Set the duration of this request, in milliseconds.
      * <p/>
      * <p>The duration begins immediately (and not when the request
@@ -312,6 +331,18 @@ public final class LocationRequest implements Parcelable {
      */
     public LocationRequest setExpireIn(long millis) {
         return null;
+    }
+
+    /**
+     * Get the request expiration time, in milliseconds since boot.
+     * <p/>
+     * <p>This value can be compared to {@link SystemClock#elapsedRealtime} to determine
+     * the time until expiration.
+     *
+     * @return expiration time of request, in milliseconds since boot including suspend
+     */
+    public long getExpireAt() {
+        return 0;
     }
 
     /**
@@ -333,14 +364,14 @@ public final class LocationRequest implements Parcelable {
     }
 
     /**
-     * Get the request expiration time, in milliseconds since boot.
+     * Get the number of updates requested.
      * <p/>
-     * <p>This value can be compared to {@link SystemClock#elapsedRealtime} to determine
-     * the time until expiration.
+     * <p>By default this is {@link Integer#MAX_VALUE}, which indicates that
+     * locations are updated until the request is explicitly removed.
      *
-     * @return expiration time of request, in milliseconds since boot including suspend
+     * @return number of updates
      */
-    public long getExpireAt() {
+    public int getNumUpdates() {
         return 0;
     }
 
@@ -362,28 +393,9 @@ public final class LocationRequest implements Parcelable {
     }
 
     /**
-     * Get the number of updates requested.
-     * <p/>
-     * <p>By default this is {@link Integer#MAX_VALUE}, which indicates that
-     * locations are updated until the request is explicitly removed.
-     *
-     * @return number of updates
-     */
-    public int getNumUpdates() {
-        return 0;
-    }
-
-    /**
      * @hide
      */
     public void decrementNumUpdates() {
-    }
-
-    /**
-     * @hide
-     */
-    public LocationRequest setProvider(String provider) {
-        return null;
     }
 
     /**
@@ -396,7 +408,7 @@ public final class LocationRequest implements Parcelable {
     /**
      * @hide
      */
-    public LocationRequest setSmallestDisplacement(float meters) {
+    public LocationRequest setProvider(String provider) {
         return null;
     }
 
@@ -405,6 +417,20 @@ public final class LocationRequest implements Parcelable {
      */
     public float getSmallestDisplacement() {
         return 0;
+    }
+
+    /**
+     * @hide
+     */
+    public LocationRequest setSmallestDisplacement(float meters) {
+        return null;
+    }
+
+    /**
+     * @hide
+     */
+    public WorkSource getWorkSource() {
+        return null;
     }
 
     /**
@@ -423,8 +449,8 @@ public final class LocationRequest implements Parcelable {
     /**
      * @hide
      */
-    public WorkSource getWorkSource() {
-        return null;
+    public boolean getHideFromAppOps() {
+        return false;
     }
 
     /**
@@ -444,26 +470,6 @@ public final class LocationRequest implements Parcelable {
     public void setHideFromAppOps(boolean hideFromAppOps) {
     }
 
-    /**
-     * @hide
-     */
-    public boolean getHideFromAppOps() {
-        return false;
-    }
-
-    public static final Parcelable.Creator<LocationRequest> CREATOR =
-            new Parcelable.Creator<LocationRequest>() {
-                @Override
-                public LocationRequest createFromParcel(Parcel in) {
-                    return null;
-                }
-
-                @Override
-                public LocationRequest[] newArray(int size) {
-                    return null;
-                }
-            };
-
     @Override
     public int describeContents() {
         return 0;
@@ -471,12 +477,5 @@ public final class LocationRequest implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
-    }
-
-    /**
-     * @hide
-     */
-    public static String qualityToString(int quality) {
-        return null;
     }
 }

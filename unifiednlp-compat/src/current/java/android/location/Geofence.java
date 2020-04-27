@@ -27,26 +27,30 @@ import android.os.Parcelable;
  * @hide
  */
 public final class Geofence implements Parcelable {
-    /** @hide */
+    /**
+     * @hide
+     */
     public static final int TYPE_HORIZONTAL_CIRCLE = 1;
+    public static final Parcelable.Creator<Geofence> CREATOR = new Parcelable.Creator<Geofence>() {
+        @Override
+        public Geofence createFromParcel(Parcel in) {
+            int type = in.readInt();
+            double latitude = in.readDouble();
+            double longitude = in.readDouble();
+            float radius = in.readFloat();
+            checkType(type);
+            return Geofence.createCircle(latitude, longitude, radius);
+        }
 
+        @Override
+        public Geofence[] newArray(int size) {
+            return new Geofence[size];
+        }
+    };
     private final int mType;
     private final double mLatitude;
     private final double mLongitude;
     private final float mRadius;
-
-    /**
-     * Create a circular geofence (on a flat, horizontal plane).
-     *
-     * @param latitude latitude in degrees, between -90 and +90 inclusive
-     * @param longitude longitude in degrees, between -180 and +180 inclusive
-     * @param radius radius in meters
-     * @return a new geofence
-     * @throws IllegalArgumentException if any parameters are out of range
-     */
-    public static Geofence createCircle(double latitude, double longitude, float radius) {
-        return new Geofence(latitude, longitude, radius);
-    }
 
     private Geofence(double latitude, double longitude, float radius) {
         checkRadius(radius);
@@ -57,24 +61,17 @@ public final class Geofence implements Parcelable {
         mRadius = radius;
     }
 
-    /** @hide */
-    public int getType() {
-        return mType;
-    }
-
-    /** @hide */
-    public double getLatitude() {
-        return mLatitude;
-    }
-
-    /** @hide */
-    public double getLongitude() {
-        return mLongitude;
-    }
-
-    /** @hide */
-    public float getRadius() {
-        return mRadius;
+    /**
+     * Create a circular geofence (on a flat, horizontal plane).
+     *
+     * @param latitude  latitude in degrees, between -90 and +90 inclusive
+     * @param longitude longitude in degrees, between -180 and +180 inclusive
+     * @param radius    radius in meters
+     * @return a new geofence
+     * @throws IllegalArgumentException if any parameters are out of range
+     */
+    public static Geofence createCircle(double latitude, double longitude, float radius) {
+        return new Geofence(latitude, longitude, radius);
     }
 
     private static void checkRadius(float radius) {
@@ -98,21 +95,43 @@ public final class Geofence implements Parcelable {
         }
     }
 
-    public static final Parcelable.Creator<Geofence> CREATOR = new Parcelable.Creator<Geofence>() {
-        @Override
-        public Geofence createFromParcel(Parcel in) {
-            int type = in.readInt();
-            double latitude = in.readDouble();
-            double longitude = in.readDouble();
-            float radius = in.readFloat();
-            checkType(type);
-            return Geofence.createCircle(latitude, longitude, radius);
+    private static String typeToString(int type) {
+        switch (type) {
+            case TYPE_HORIZONTAL_CIRCLE:
+                return "CIRCLE";
+            default:
+                checkType(type);
+                return null;
         }
-        @Override
-        public Geofence[] newArray(int size) {
-            return new Geofence[size];
-        }
-    };
+    }
+
+    /**
+     * @hide
+     */
+    public int getType() {
+        return mType;
+    }
+
+    /**
+     * @hide
+     */
+    public double getLatitude() {
+        return mLatitude;
+    }
+
+    /**
+     * @hide
+     */
+    public double getLongitude() {
+        return mLongitude;
+    }
+
+    /**
+     * @hide
+     */
+    public float getRadius() {
+        return mRadius;
+    }
 
     @Override
     public int describeContents() {
@@ -125,16 +144,6 @@ public final class Geofence implements Parcelable {
         parcel.writeDouble(mLatitude);
         parcel.writeDouble(mLongitude);
         parcel.writeFloat(mRadius);
-    }
-
-    private static String typeToString(int type) {
-        switch (type) {
-            case TYPE_HORIZONTAL_CIRCLE:
-                return "CIRCLE";
-            default:
-                checkType(type);
-                return null;
-        }
     }
 
     @Override

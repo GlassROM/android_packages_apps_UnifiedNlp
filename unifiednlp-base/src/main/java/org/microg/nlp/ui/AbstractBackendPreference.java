@@ -49,8 +49,8 @@ import static org.microg.nlp.api.Constants.METADATA_BACKEND_SETTINGS_ACTIVITY;
 import static org.microg.nlp.api.Constants.METADATA_BACKEND_SUMMARY;
 
 abstract class AbstractBackendPreference extends DialogPreference {
-    private ListView listView;
     private final Adapter adapter;
+    private ListView listView;
     private List<BackendInfo> knownBackends;
 
     AbstractBackendPreference(Context context, AttributeSet attrs) {
@@ -139,6 +139,53 @@ abstract class AbstractBackendPreference extends DialogPreference {
         return intent;
     }
 
+    protected void enableBackend(BackendInfo backendInfo) {
+        try {
+            if (backendInfo.getMeta(METADATA_BACKEND_INIT_ACTIVITY) != null) {
+                getContext().startActivity(createExternalIntent(backendInfo, METADATA_BACKEND_INIT_ACTIVITY));
+            } else {
+                Intent intent = buildBackendIntent();
+                intent.setPackage(backendInfo.serviceInfo.packageName);
+                intent.setClassName(backendInfo.serviceInfo.packageName, backendInfo.serviceInfo.name);
+                getContext().bindService(intent, new ServiceConnection() {
+                    @Override
+                    public void onServiceConnected(ComponentName name, IBinder service) {
+                        Intent i = getBackendInitIntent(service);
+                        if (i != null) {
+                            getContext().startActivity(i);
+                        }
+                        getContext().unbindService(this);
+                    }
+
+                    @Override
+                    public void onServiceDisconnected(ComponentName name) {
+
+                    }
+                }, BIND_AUTO_CREATE);
+            }
+        } catch (Exception e) {
+            backendInfo.enabled = false;
+            Toast.makeText(getContext(), "Error initializing backend", Toast.LENGTH_SHORT).show();
+            resetAdapter();
+        }
+    }
+
+    @Override
+    protected void onDialogClosed(boolean positiveResult) {
+        if (positiveResult) {
+            persistString(toString());
+            onValueChanged();
+        }
+    }
+
+    protected abstract void onValueChanged();
+
+    protected abstract Intent buildBackendIntent();
+
+    protected abstract String defaultValue();
+
+    protected abstract Intent getBackendInitIntent(IBinder service);
+
     private class Adapter extends ArrayAdapter<BackendInfo> {
 
         public Adapter() {
@@ -198,53 +245,6 @@ abstract class AbstractBackendPreference extends DialogPreference {
             }
         }
     }
-
-    protected void enableBackend(BackendInfo backendInfo) {
-        try {
-            if (backendInfo.getMeta(METADATA_BACKEND_INIT_ACTIVITY) != null) {
-                getContext().startActivity(createExternalIntent(backendInfo, METADATA_BACKEND_INIT_ACTIVITY));
-            } else {
-                Intent intent = buildBackendIntent();
-                intent.setPackage(backendInfo.serviceInfo.packageName);
-                intent.setClassName(backendInfo.serviceInfo.packageName, backendInfo.serviceInfo.name);
-                getContext().bindService(intent, new ServiceConnection() {
-                    @Override
-                    public void onServiceConnected(ComponentName name, IBinder service) {
-                        Intent i = getBackendInitIntent(service);
-                        if (i != null) {
-                            getContext().startActivity(i);
-                        }
-                        getContext().unbindService(this);
-                    }
-
-                    @Override
-                    public void onServiceDisconnected(ComponentName name) {
-
-                    }
-                }, BIND_AUTO_CREATE);
-            }
-        } catch (Exception e) {
-            backendInfo.enabled = false;
-            Toast.makeText(getContext(), "Error initializing backend", Toast.LENGTH_SHORT).show();
-            resetAdapter();
-        }
-    }
-
-    @Override
-    protected void onDialogClosed(boolean positiveResult) {
-        if (positiveResult) {
-            persistString(toString());
-            onValueChanged();
-        }
-    }
-
-    protected abstract void onValueChanged();
-
-    protected abstract Intent buildBackendIntent();
-
-    protected abstract String defaultValue();
-
-    protected abstract Intent getBackendInitIntent(IBinder service);
 
     private class BackendInfo {
         private final ServiceInfo serviceInfo;

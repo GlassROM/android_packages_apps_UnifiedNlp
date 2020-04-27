@@ -18,7 +18,6 @@ package org.microg.nlp.location;
 
 import android.content.Context;
 import android.location.Criteria;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.WorkSource;
 import android.util.Log;

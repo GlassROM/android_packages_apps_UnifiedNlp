@@ -24,12 +24,6 @@ import org.microg.nlp.AbstractProviderService;
 import static org.microg.nlp.api.Constants.ACTION_RELOAD_SETTINGS;
 
 public abstract class AbstractGeocodeService extends AbstractProviderService<GeocodeProvider> {
-    public static void reloadGeocodeService(Context context) {
-        Intent intent = new Intent(ACTION_RELOAD_SETTINGS);
-        intent.setClass(context, GeocodeServiceV1.class);
-        context.startService(intent);
-    }
-
     /**
      * Creates an GeocodeService.  Invoked by your subclass's constructor.
      *
@@ -37,6 +31,12 @@ public abstract class AbstractGeocodeService extends AbstractProviderService<Geo
      */
     public AbstractGeocodeService(String tag) {
         super(tag);
+    }
+
+    public static void reloadGeocodeService(Context context) {
+        Intent intent = new Intent(ACTION_RELOAD_SETTINGS);
+        intent.setClass(context, GeocodeServiceV1.class);
+        context.startService(intent);
     }
 
     @Override

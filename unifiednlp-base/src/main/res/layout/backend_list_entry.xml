@@ -17,19 +17,19 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
+    android:orientation="horizontal"
     android:padding="16dp">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="0dip"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:orientation="vertical"
         android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:layout_height="wrap_content">
+        android:paddingRight="8dp">
 
         <!-- simple name -->
         <TextView
@@ -42,9 +42,9 @@
         <TextView
             android:id="@android:id/text2"
             style="?android:textAppearanceSmall"
-            android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
     </LinearLayout>
 
@@ -52,25 +52,25 @@
         android:id="@android:id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:focusable="false"
-        android:clickable="false"
-        android:tintMode="src_in"
-        android:tint="?attr/colorPrimary"
         android:background="?attr/selectableItemBackground"
+        android:clickable="false"
+        android:focusable="false"
         android:padding="4dp"
-        android:src="@drawable/info" />
+        android:src="@drawable/info"
+        android:tint="?attr/colorPrimary"
+        android:tintMode="src_in" />
 
     <ImageView
         android:id="@android:id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:focusable="false"
-        android:clickable="false"
-        android:tintMode="src_in"
-        android:tint="?attr/colorPrimary"
         android:background="?attr/selectableItemBackground"
+        android:clickable="false"
+        android:focusable="false"
         android:padding="4dp"
-        android:src="@drawable/settings" />
+        android:src="@drawable/settings"
+        android:tint="?attr/colorPrimary"
+        android:tintMode="src_in" />
 
     <CheckBox
         android:id="@+id/enabled"

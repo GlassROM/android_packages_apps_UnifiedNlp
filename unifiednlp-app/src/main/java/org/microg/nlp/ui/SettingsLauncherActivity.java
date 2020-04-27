@@ -29,13 +29,6 @@ import static android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
 import static android.content.pm.PackageManager.DONT_KILL_APP;
 
 public class SettingsLauncherActivity extends Activity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        startActivity(new Intent(this, SettingsActivity.class));
-        finish();
-    }
-
     public static void setLauncherIconEnabled(Context context, boolean enabled) {
         PackageManager pm = context.getPackageManager();
         pm.setComponentEnabledSetting(new ComponentName(context, SettingsLauncherActivity.class),
@@ -51,5 +44,12 @@ public class SettingsLauncherActivity extends Activity {
                 setLauncherIconEnabled(context, true);
             }
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        startActivity(new Intent(this, SettingsActivity.class));
+        finish();
     }
 }

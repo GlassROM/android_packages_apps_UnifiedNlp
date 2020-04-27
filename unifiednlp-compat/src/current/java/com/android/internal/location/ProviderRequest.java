@@ -26,28 +26,6 @@ import java.util.List;
  * @hide
  */
 public final class ProviderRequest implements Parcelable {
-    /**
-     * Location reporting is requested (true)
-     */
-    public boolean reportLocation = false;
-
-    /**
-     * The smallest requested interval
-     */
-    public long interval = Long.MAX_VALUE;
-
-    /**
-     * A more detailed set of requests.
-     * <p>Location Providers can optionally use this to
-     * fine tune location updates, for example when there
-     * is a high power slow interval request and a
-     * low power fast interval request.
-     */
-    public List<LocationRequest> locationRequests = null;
-
-    public ProviderRequest() {
-    }
-
     public static final Parcelable.Creator<ProviderRequest> CREATOR =
             new Parcelable.Creator<ProviderRequest>() {
                 @Override
@@ -60,6 +38,25 @@ public final class ProviderRequest implements Parcelable {
                     return null;
                 }
             };
+    /**
+     * Location reporting is requested (true)
+     */
+    public boolean reportLocation = false;
+    /**
+     * The smallest requested interval
+     */
+    public long interval = Long.MAX_VALUE;
+    /**
+     * A more detailed set of requests.
+     * <p>Location Providers can optionally use this to
+     * fine tune location updates, for example when there
+     * is a high power slow interval request and a
+     * low power fast interval request.
+     */
+    public List<LocationRequest> locationRequests = null;
+
+    public ProviderRequest() {
+    }
 
     @Override
     public int describeContents() {

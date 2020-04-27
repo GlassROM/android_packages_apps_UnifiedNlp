@@ -15,6 +15,6 @@
   -->
 
 <injected-location-setting xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/nlp_settings_label"
     android:icon="@mipmap/ic_nlp_settings"
-    android:settingsActivity="org.microg.nlp.ui.SettingsActivity" />
+    android:settingsActivity="org.microg.nlp.ui.SettingsActivity"
+    android:title="@string/nlp_settings_label" />

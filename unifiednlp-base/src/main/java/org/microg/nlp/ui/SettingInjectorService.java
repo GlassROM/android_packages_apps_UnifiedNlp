@@ -17,7 +17,6 @@
 package org.microg.nlp.ui;
 
 import android.annotation.TargetApi;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -30,9 +29,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import static android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
-import static android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
-import static android.content.pm.PackageManager.DONT_KILL_APP;
 import static android.content.pm.PackageManager.GET_META_DATA;
 
 @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -41,17 +37,6 @@ public class SettingInjectorService extends android.location.SettingInjectorServ
 
     public SettingInjectorService() {
         super(TAG);
-    }
-
-    @Override
-    @SuppressWarnings("deprecation")
-    protected String onGetSummary() {
-        return "";
-    }
-
-    @Override
-    protected boolean onGetEnabled() {
-        return true;
     }
 
     /**
@@ -93,5 +78,16 @@ public class SettingInjectorService extends android.location.SettingInjectorServ
             Log.w(TAG, "Can't determine if settings injection is possible", e);
         }
         return false;
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    protected String onGetSummary() {
+        return "";
+    }
+
+    @Override
+    protected boolean onGetEnabled() {
+        return true;
     }
 }

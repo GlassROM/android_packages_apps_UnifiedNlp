@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2013-2017 microG Project Team
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,12 +15,11 @@
   -->
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:key="nlp_self_check_preferences">
+    android:key="nlp_self_check_preferences">
     <PreferenceCategory android:title="@string/prefcat_setup">
         <Preference
             android:key="@string/self_check_title"
             android:summary="@string/self_check_desc"
-            android:title="@string/self_check_title">
-        </Preference>
+            android:title="@string/self_check_title"></Preference>
     </PreferenceCategory>
 </PreferenceScreen>

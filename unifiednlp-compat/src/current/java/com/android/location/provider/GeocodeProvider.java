@@ -39,7 +39,7 @@ public abstract class GeocodeProvider {
      * Classes implementing this method should not hold a reference to the params parameter.
      */
     public abstract String onGetFromLocation(double latitude, double longitude, int maxResults,
-            GeocoderParams params, List<Address> addrs);
+                                             GeocoderParams params, List<Address> addrs);
 
     /**
      * This method is overridden to implement the
@@ -47,9 +47,9 @@ public abstract class GeocodeProvider {
      * Classes implementing this method should not hold a reference to the params parameter.
      */
     public abstract String onGetFromLocationName(String locationName,
-            double lowerLeftLatitude, double lowerLeftLongitude,
-            double upperRightLatitude, double upperRightLongitude, int maxResults,
-            GeocoderParams params, List<Address> addrs);
+                                                 double lowerLeftLatitude, double lowerLeftLongitude,
+                                                 double upperRightLatitude, double upperRightLongitude, int maxResults,
+                                                 GeocoderParams params, List<Address> addrs);
 
     /**
      * Returns the Binder interface for the geocode provider.

@@ -25,11 +25,11 @@ import android.os.RemoteException;
 import android.util.Log;
 
 public abstract class AbstractBackendHelper implements ServiceConnection {
-    private final Context context;
     protected final Intent serviceIntent;
-    private boolean bound;
+    private final Context context;
     private final String TAG;
     private final String signatureDigest;
+    private boolean bound;
 
     protected AbstractBackendHelper(String tag, Context context, Intent serviceIntent) {
         this(tag, context, serviceIntent, null);

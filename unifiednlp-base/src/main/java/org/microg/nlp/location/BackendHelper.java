@@ -54,6 +54,32 @@ class BackendHelper extends AbstractBackendHelper {
         return lastLocation;
     }
 
+    private void setLastLocation(Location location) {
+        if (location == null || !location.hasAccuracy()) {
+            return;
+        }
+        if (location.getExtras() == null) {
+            location.setExtras(new Bundle());
+        }
+        location.getExtras().putString(LOCATION_EXTRA_BACKEND_PROVIDER, location.getProvider());
+        location.getExtras().putString(LOCATION_EXTRA_BACKEND_COMPONENT,
+                serviceIntent.getComponent().flattenToShortString());
+        location.setProvider("network");
+        if (!location.hasAccuracy()) {
+            location.setAccuracy(50000);
+        }
+        if (location.getTime() <= 0) {
+            location.setTime(System.currentTimeMillis());
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            updateElapsedRealtimeNanos(location);
+        }
+        Location noGpsLocation = new Location(location);
+        noGpsLocation.setExtras(null);
+        location.getExtras().putParcelable(LocationProviderBase.EXTRA_NO_GPS_LOCATION, noGpsLocation);
+        lastLocation = location;
+    }
+
     /**
      * Requests a location update from the backend.
      *
@@ -79,32 +105,6 @@ class BackendHelper extends AbstractBackendHelper {
             }
         }
         return result;
-    }
-
-    private void setLastLocation(Location location) {
-        if (location == null || !location.hasAccuracy()) {
-            return;
-        }
-        if (location.getExtras() == null) {
-            location.setExtras(new Bundle());
-        }
-        location.getExtras().putString(LOCATION_EXTRA_BACKEND_PROVIDER, location.getProvider());
-        location.getExtras().putString(LOCATION_EXTRA_BACKEND_COMPONENT,
-                serviceIntent.getComponent().flattenToShortString());
-        location.setProvider("network");
-        if (!location.hasAccuracy()) {
-            location.setAccuracy(50000);
-        }
-        if (location.getTime() <= 0) {
-            location.setTime(System.currentTimeMillis());
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            updateElapsedRealtimeNanos(location);
-        }
-        Location noGpsLocation = new Location(location);
-        noGpsLocation.setExtras(null);
-        location.getExtras().putParcelable(LocationProviderBase.EXTRA_NO_GPS_LOCATION, noGpsLocation);
-        lastLocation = location;
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)

@@ -17,7 +17,6 @@
 package org.microg.nlp.location;
 
 import android.content.Context;
-import android.location.Location;
 
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -25,9 +24,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 class ThreadHelper implements Runnable {
     private final BackendFuser backendFuser;
+    private final AtomicBoolean enabled = new AtomicBoolean(false);
     private ScheduledThreadPoolExecutor executor;
     private long time = 60000; // Initialize with 60s
-    private final AtomicBoolean enabled = new AtomicBoolean(false);
 
     public ThreadHelper(Context context, LocationProvider locationProvider) {
         backendFuser = new BackendFuser(context, locationProvider);

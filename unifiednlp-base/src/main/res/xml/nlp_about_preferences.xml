@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2013-2017 microG Project Team
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +19,6 @@
         <Preference
             android:key="@string/pref_about_title"
             android:summary="@string/pref_about_summary"
-            android:title="@string/pref_about_title">
-        </Preference>
+            android:title="@string/pref_about_title"></Preference>
     </PreferenceCategory>
 </PreferenceScreen>

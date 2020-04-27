@@ -27,9 +27,9 @@ import com.android.internal.location.ProviderProperties;
  */
 public final class ProviderPropertiesUnbundled {
     public static ProviderPropertiesUnbundled create(boolean requiresNetwork,
-            boolean requiresSatellite, boolean requiresCell, boolean hasMonetaryCost,
-            boolean supportsAltitude, boolean supportsSpeed, boolean supportsBearing,
-            int powerRequirement, int accuracy) {
+                                                     boolean requiresSatellite, boolean requiresCell, boolean hasMonetaryCost,
+                                                     boolean supportsAltitude, boolean supportsSpeed, boolean supportsBearing,
+                                                     int powerRequirement, int accuracy) {
         return null;
     }
 

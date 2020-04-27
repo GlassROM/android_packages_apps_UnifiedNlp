@@ -36,30 +36,6 @@ public class Preferences {
         this.context = context;
     }
 
-    private SharedPreferences getSharedPreferences() {
-        return PreferenceManager.getDefaultSharedPreferences(context);
-    }
-
-    public String getDefaultLocationBackends() {
-        String defBackends = Settings.Secure.getString(context.getContentResolver(), DEFAULT_LOCATION_BACKENDS);
-        return defBackends == null ? "" : defBackends;
-    }
-
-    public String getLocationBackends() {
-        return getSharedPreferences().getString(context.getString(R.string.pref_location_backends),
-                getDefaultLocationBackends());
-    }
-
-    public String getDefaultGeocoderBackends() {
-        String defBackends = Settings.Secure.getString(context.getContentResolver(), DEFAULT_GEOCODER_BACKENDS);
-        return defBackends == null ? "" : defBackends;
-    }
-
-    public String getGeocoderBackends() {
-        return getSharedPreferences().getString(context.getString(R.string.pref_geocoder_backends),
-                getDefaultGeocoderBackends());
-    }
-
     public static String[] splitBackendString(String backendString) {
         return backendString.split("\\|");
     }
@@ -101,5 +77,29 @@ public class Preferences {
             }
         }
         return null;
+    }
+
+    private SharedPreferences getSharedPreferences() {
+        return PreferenceManager.getDefaultSharedPreferences(context);
+    }
+
+    public String getDefaultLocationBackends() {
+        String defBackends = Settings.Secure.getString(context.getContentResolver(), DEFAULT_LOCATION_BACKENDS);
+        return defBackends == null ? "" : defBackends;
+    }
+
+    public String getLocationBackends() {
+        return getSharedPreferences().getString(context.getString(R.string.pref_location_backends),
+                getDefaultLocationBackends());
+    }
+
+    public String getDefaultGeocoderBackends() {
+        String defBackends = Settings.Secure.getString(context.getContentResolver(), DEFAULT_GEOCODER_BACKENDS);
+        return defBackends == null ? "" : defBackends;
+    }
+
+    public String getGeocoderBackends() {
+        return getSharedPreferences().getString(context.getString(R.string.pref_geocoder_backends),
+                getDefaultGeocoderBackends());
     }
 }

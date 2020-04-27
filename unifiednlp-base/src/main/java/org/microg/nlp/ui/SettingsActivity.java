@@ -36,12 +36,17 @@ import org.microg.tools.ui.AbstractSettingsFragment;
 
 import java.util.List;
 
-import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_BACKGROUND_LOCATION;
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.LOLLIPOP_MR1;
 
 public class SettingsActivity extends AppCompatActivity {
+    private static boolean isUnifiedNlpAppRelease(Context context) {
+        int resId = context.getResources().getIdentifier("is_unifiednlp_app", "bool", context.getPackageName());
+        return resId != 0 && context.getResources().getBoolean(resId);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,11 +54,6 @@ public class SettingsActivity extends AppCompatActivity {
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_wrapper, new MyPreferenceFragment()).commit();
-    }
-
-    private static boolean isUnifiedNlpAppRelease(Context context) {
-        int resId = context.getResources().getIdentifier("is_unifiednlp_app", "bool", context.getPackageName());
-        return resId != 0 && context.getResources().getBoolean(resId);
     }
 
     public static class MyPreferenceFragment extends AbstractSettingsFragment {
